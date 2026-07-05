@@ -2,11 +2,14 @@
     "version": "2",
     "templates": [
         {
+            "id": 1,
+            "description": "Nginx web server preconfigured with Traefik labels for automatic HTTPS routing via Let's Encrypt on the external 'proxy' network.",
+            "note": "Requires an external Docker network named <b>proxy</b> and a Traefik instance with a certresolver named <b>le</b>.",
+            "maintainer": "https://gitlab.com/infra6221827/dockhand-tpl",
             "categories": [
                 "Web",
                 "Proxy"
             ],
-            "description": "Nginx web server preconfigured with Traefik labels for automatic HTTPS routing via Let's Encrypt on the external 'proxy' network.",
             "env": [
                 {
                     "default": "1000",
@@ -36,9 +39,36 @@
                     "container": "/usr/share/nginx/html:ro"
                 }
             ],
-            "note": "Requires an external Docker network named <b>proxy</b> and a Traefik instance with a certresolver named <b>le</b>.",
-            "maintainer": "https://gitlab.com/infra6221827/dockhand-tpl",
-            "id": 1
+            "labels": [
+                {
+                    "name": "traefik.enable",
+                    "value": "true"
+                },
+                {
+                    "name": "traefik.http.routers.${SERVICE}.rule",
+                    "value": "Host(`${SERVICE}.${DOMAIN}`)"
+                },
+                {
+                    "name": "traefik.http.routers.${SERVICE}.tls",
+                    "value": "true"
+                },
+                {
+                    "name": "traefik.http.routers.${SERVICE}.tls.certresolver",
+                    "value": "le"
+                },
+                {
+                    "name": "traefik.http.routers.${SERVICE}.entrypoints",
+                    "value": "websecure"
+                },
+                {
+                    "name": "traefik.http.services.${SERVICE}.loadbalancer.server.port",
+                    "value": "80"
+                },
+                {
+                    "name": "dockhand.url",
+                    "value": "https://${SERVICE}.${DOMAIN}"
+                }
+            ]
         }
     ]
 }
