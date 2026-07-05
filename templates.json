@@ -43,6 +43,10 @@
                 {
                     "name": "traefik.enable",
                     "value": "true"
+                },
+                {
+                    "name": "traefik.http.routers.${SERVICE}.rule",
+                    "value": "Host(`{{ SERVICE }}.{{ DOMAIN }}`)"
                 }
             ]
         }
