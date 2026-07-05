@@ -43,30 +43,6 @@
                 {
                     "name": "traefik.enable",
                     "value": "true"
-                },
-                {
-                    "name": "traefik.http.routers.${SERVICE}.rule",
-                    "value": "Host(`${SERVICE}.${DOMAIN}`)"
-                },
-                {
-                    "name": "traefik.http.routers.${SERVICE}.tls",
-                    "value": "true"
-                },
-                {
-                    "name": "traefik.http.routers.${SERVICE}.tls.certresolver",
-                    "value": "le"
-                },
-                {
-                    "name": "traefik.http.routers.${SERVICE}.entrypoints",
-                    "value": "websecure"
-                },
-                {
-                    "name": "traefik.http.services.${SERVICE}.loadbalancer.server.port",
-                    "value": "80"
-                },
-                {
-                    "name": "dockhand.url",
-                    "value": "https://${SERVICE}.${DOMAIN}"
                 }
             ]
         }
