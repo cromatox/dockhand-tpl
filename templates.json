@@ -45,8 +45,8 @@
                     "value": "true"
                 },
                 {
-                    "name": "traefik.http.routers.${SERVICE}.rule",
-                    "value": "Host(`{{ SERVICE }}.{{ DOMAIN }}`)"
+                    "name": "traefik.http.routers.nginx.rule",
+                    "value": "Host(`nginx.example.com`)"
                 }
             ]
         }
